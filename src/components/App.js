@@ -1,38 +1,53 @@
-import React, {Component, useContext, useState} from "react";
-import '../styles/App.css';
+import React, { Component, useContext, useState } from "react";
+import "../styles/App.css";
 import { AppContext } from "./context/AppContext";
 import "regenerator-runtime/runtime";
 
 const App = () => {
-  const {input, handleChange,data,fetchData}=useContext(AppContext);
-  
+  const { input, handleChange, data, fetchData, error } =
+    useContext(AppContext);
+
   console.log(data);
 
   return (
     <div id="main">
-     <form>
-       <label htmlFor="search">Search Movie</label><br></br>
-      <input type="text" id="search" value={input} onChange={handleChange}></input>
-      <button onClick={()=>{fetchData()}}>Search</button>
-     </form>
-    <ul>
+     <form
+  onSubmit={(e) => {
+    e.preventDefault();
+    fetchData();
+  }}
+>
+        <label htmlFor="search">Search Movie</label>
+        <br></br>
+        <input
+          type="text"
+          id="search"
+          value={input}
+          onChange={handleChange}
+        ></input>
+        <button
+          type="submit"
+        >
+          Search
+        </button>
+      </form>
+      <ul>
+        {error && (
+          <li className="error">Invalid movie name. Please try again.</li>
+        )}
 
-    {data.length==0 ? (<li className="error">Invalid movie name. Please try again.</li>):(
-        data.map((el,idx)=>{
-      return (
-        <li key={idx}>
-          <h2>{el.Title} ({el.Year})</h2>
-          <img src={el.Poster}/>
-        </li>
-      )
-    })
-    )}
-      
-    </ul>
-      
+        {!error &&
+          data.map((el, idx) => (
+            <li key={idx}>
+              <h2>
+                {el.Title} ({el.Year})
+              </h2>
+              <img src={el.Poster} alt={el.Title} />
+            </li>
+          ))}
+      </ul>
     </div>
-  )
-}
-
+  );
+};
 
 export default App;
