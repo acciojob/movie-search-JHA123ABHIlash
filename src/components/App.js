@@ -10,9 +10,11 @@ const App = () => {
 
   return (
     <div id="main">
-      <label htmlFor="search">Search Movie</label><br></br>
+     <form>
+       <label htmlFor="search">Search Movie</label><br></br>
       <input type="text" id="search" value={input} onChange={handleChange}></input>
       <button onClick={()=>{fetchData()}}>Search</button>
+     </form>
     <ul>
 
     {data.length==0 ? (<div>Invalid movie name. Please try again.</div>):(
