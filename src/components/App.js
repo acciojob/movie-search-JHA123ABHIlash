@@ -17,7 +17,7 @@ const App = () => {
      </form>
     <ul>
 
-    {data.length==0 ? (<div className="error">Invalid movie name. Please try again.</div>):(
+    {data.length==0 ? (<li className="error">Invalid movie name. Please try again.</li>):(
         data.map((el,idx)=>{
       return (
         <li key={idx}>
